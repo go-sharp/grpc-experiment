@@ -1,0 +1,24 @@
+{
+  "name": "grpc-experiment",
+  "version": "1.0.0",
+  "description": "Example Project with GRPC + .Net + grpc-proxy + Reactjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/go-sharp/grpc-experiment.git"
+  },
+  "keywords": [
+    "grpc",
+    ".net",
+    "react"
+  ],
+  "author": "Sandro Dallo sandro@dallo.biz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/go-sharp/grpc-experiment/issues"
+  },
+  "homepage": "https://github.com/go-sharp/grpc-experiment#readme"
+}
