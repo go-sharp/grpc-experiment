@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package Grpc.TodoService;
+
+service TodoService {
+    rpc Create(Todo) returns (TodoResponse) {}
+    rpc Update(Todo) returns (TodoResponse) {}
+    rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+    rpc List(Void) returns (Todos) {}
+}
+
+enum Status {
+    OK = 0; // First Enum must be 0
+    FAILED = 1;
+}
+
+// Every Service needs a message and this is an empty message
+message Void {}
+
+message Todo {
+    int32 id = 1;
+    string text = 2;
+    bool done = 3;
+}
+
+message Todos {
+    repeated Todo todos = 1;
+}
+
+message Error {
+    string text = 1;
+}
+
+message TodoResponse {
+    Status status = 1;
+    oneof response {
+        Todo todo = 2;
+        Error error = 3;
+    }
+}
+
+message DeleteRequest {
+    int32 id = 1;
+}
+
+message DeleteResponse {
+    Status status = 1;
+}
