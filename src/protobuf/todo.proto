@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package Grpc.TodoService;
+package GrpcExample.Services;
 
 service TodoService {
     rpc Create(Todo) returns (TodoResponse) {}

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
 
-namespace Grpc.Server
+namespace GrpcExample.Server
 {
     public class Log
     {
