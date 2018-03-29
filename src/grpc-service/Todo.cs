@@ -12,7 +12,7 @@ namespace GrpcExample.Services {
   /// <summary>Holder for reflection information generated from protobuf/todo.proto</summary>
   public static partial class TodoReflection {
 
-    #region Descriptor
+    #region Descriptor 
     /// <summary>File descriptor for protobuf/todo.proto</summary>
     public static pbr::FileDescriptor Descriptor {
       get { return descriptor; }

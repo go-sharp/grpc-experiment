@@ -15,5 +15,5 @@ Example Project GRPC + .Net + grpc-proxy + Reactjs
 
 ### Generate C# Code
 ```bash
- protoc --csharp_out=grpc-server --grpc_out=grpc-server  --plugin=protoc-gen-grpc=grpc_csharp_plugin ./protobuf/todo.proto
+ protoc --csharp_out=grpc-service --grpc_out=grpc-service  --plugin=protoc-gen-grpc=grpc_csharp_plugin ./protobuf/todo.proto
 ```

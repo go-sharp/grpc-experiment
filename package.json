@@ -4,7 +4,7 @@
   "description": "Example Project with GRPC + .Net + grpc-proxy + Reactjs",
   "main": "index.js",
   "scripts": {
-    "gen-grpc-server": "protoc --csharp_out=./src/grpc-server --grpc_out=./src/grpc-server  --plugin=protoc-gen-grpc=grpc_csharp_plugin ./src/protobuf/todo.proto",
+    "gen-grpc-server": "protoc --csharp_out=./src/grpc-service --grpc_out=./src/grpc-service  --plugin=protoc-gen-grpc=grpc_csharp_plugin ./src/protobuf/todo.proto",
     "start": "cd ./src/grpc-server && dotnet run"
   },
   "repository": {
