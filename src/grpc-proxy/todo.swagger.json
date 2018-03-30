@@ -1,8 +1,9 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "todo.proto",
-    "version": "version not set"
+    "title": "TodoService",
+    "description": "An example grpc service",
+    "version": "1.0.0"
   },
   "schemes": [
     "http",

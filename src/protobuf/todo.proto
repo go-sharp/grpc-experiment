@@ -1,9 +1,17 @@
 syntax = "proto3";
 
 import "google/api/annotations.proto";
+import "protoc-gen-swagger/options/annotations.proto";
 
 package GrpcExample.Services;
 option go_package = "grpcproxy";
+option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
+            info: {
+                title: "TodoService"
+                description: "An example grpc service"
+                version: "1.0.0"
+            };
+    };
 
 // TodoService
 service TodoService {
