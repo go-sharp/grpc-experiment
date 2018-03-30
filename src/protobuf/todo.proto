@@ -2,13 +2,16 @@ syntax = "proto3";
 
 package GrpcExample.Services;
 
+// TodoService
 service TodoService {
     rpc Create(Todo) returns (TodoResponse) {}
     rpc Update(Todo) returns (TodoResponse) {}
+    rpc Get(GetTodoRequest) returns (TodoResponse) {}
     rpc Delete(DeleteRequest) returns (DeleteResponse) {}
     rpc List(Void) returns (Todos) {}
 }
 
+// Status of the service operation
 enum Status {
     OK = 0; // First Enum must be 0
     FAILED = 1;
@@ -16,6 +19,10 @@ enum Status {
 
 // Every Service needs a message and this is an empty message
 message Void {}
+
+message GetTodoRequest {
+    int32 id = 1;
+}
 
 message Todo {
     int32 id = 1;

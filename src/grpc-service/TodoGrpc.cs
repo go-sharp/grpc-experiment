@@ -11,12 +11,16 @@ using System.Threading.Tasks;
 using grpc = global::Grpc.Core;
 
 namespace GrpcExample.Services {
+  /// <summary>
+  /// TodoService
+  /// </summary>
   public static partial class TodoService
   {
     static readonly string __ServiceName = "GrpcExample.Services.TodoService";
 
     static readonly grpc::Marshaller<global::GrpcExample.Services.Todo> __Marshaller_Todo = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::GrpcExample.Services.Todo.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::GrpcExample.Services.TodoResponse> __Marshaller_TodoResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::GrpcExample.Services.TodoResponse.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::GrpcExample.Services.GetTodoRequest> __Marshaller_GetTodoRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::GrpcExample.Services.GetTodoRequest.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::GrpcExample.Services.DeleteRequest> __Marshaller_DeleteRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::GrpcExample.Services.DeleteRequest.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::GrpcExample.Services.DeleteResponse> __Marshaller_DeleteResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::GrpcExample.Services.DeleteResponse.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::GrpcExample.Services.Void> __Marshaller_Void = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::GrpcExample.Services.Void.Parser.ParseFrom);
@@ -34,6 +38,13 @@ namespace GrpcExample.Services {
         __ServiceName,
         "Update",
         __Marshaller_Todo,
+        __Marshaller_TodoResponse);
+
+    static readonly grpc::Method<global::GrpcExample.Services.GetTodoRequest, global::GrpcExample.Services.TodoResponse> __Method_Get = new grpc::Method<global::GrpcExample.Services.GetTodoRequest, global::GrpcExample.Services.TodoResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "Get",
+        __Marshaller_GetTodoRequest,
         __Marshaller_TodoResponse);
 
     static readonly grpc::Method<global::GrpcExample.Services.DeleteRequest, global::GrpcExample.Services.DeleteResponse> __Method_Delete = new grpc::Method<global::GrpcExample.Services.DeleteRequest, global::GrpcExample.Services.DeleteResponse>(
@@ -65,6 +76,11 @@ namespace GrpcExample.Services {
       }
 
       public virtual global::System.Threading.Tasks.Task<global::GrpcExample.Services.TodoResponse> Update(global::GrpcExample.Services.Todo request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::GrpcExample.Services.TodoResponse> Get(global::GrpcExample.Services.GetTodoRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -136,6 +152,22 @@ namespace GrpcExample.Services {
       {
         return CallInvoker.AsyncUnaryCall(__Method_Update, null, options, request);
       }
+      public virtual global::GrpcExample.Services.TodoResponse Get(global::GrpcExample.Services.GetTodoRequest request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return Get(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::GrpcExample.Services.TodoResponse Get(global::GrpcExample.Services.GetTodoRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_Get, null, options, request);
+      }
+      public virtual grpc::AsyncUnaryCall<global::GrpcExample.Services.TodoResponse> GetAsync(global::GrpcExample.Services.GetTodoRequest request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual grpc::AsyncUnaryCall<global::GrpcExample.Services.TodoResponse> GetAsync(global::GrpcExample.Services.GetTodoRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_Get, null, options, request);
+      }
       public virtual global::GrpcExample.Services.DeleteResponse Delete(global::GrpcExample.Services.DeleteRequest request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
       {
         return Delete(request, new grpc::CallOptions(headers, deadline, cancellationToken));
@@ -182,6 +214,7 @@ namespace GrpcExample.Services {
       return grpc::ServerServiceDefinition.CreateBuilder()
           .AddMethod(__Method_Create, serviceImpl.Create)
           .AddMethod(__Method_Update, serviceImpl.Update)
+          .AddMethod(__Method_Get, serviceImpl.Get)
           .AddMethod(__Method_Delete, serviceImpl.Delete)
           .AddMethod(__Method_List, serviceImpl.List).Build();
     }

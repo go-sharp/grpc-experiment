@@ -12,7 +12,7 @@ namespace GrpcExample.Services {
   /// <summary>Holder for reflection information generated from protobuf/todo.proto</summary>
   public static partial class TodoReflection {
 
-    #region Descriptor 
+    #region Descriptor
     /// <summary>File descriptor for protobuf/todo.proto</summary>
     public static pbr::FileDescriptor Descriptor {
       get { return descriptor; }
@@ -23,27 +23,31 @@ namespace GrpcExample.Services {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChNwcm90b2J1Zi90b2RvLnByb3RvEhRHcnBjRXhhbXBsZS5TZXJ2aWNlcyIG",
-            "CgRWb2lkIi4KBFRvZG8SCgoCaWQYASABKAUSDAoEdGV4dBgCIAEoCRIMCgRk",
-            "b25lGAMgASgIIjIKBVRvZG9zEikKBXRvZG9zGAEgAygLMhouR3JwY0V4YW1w",
-            "bGUuU2VydmljZXMuVG9kbyIVCgVFcnJvchIMCgR0ZXh0GAEgASgJIqIBCgxU",
-            "b2RvUmVzcG9uc2USLAoGc3RhdHVzGAEgASgOMhwuR3JwY0V4YW1wbGUuU2Vy",
-            "dmljZXMuU3RhdHVzEioKBHRvZG8YAiABKAsyGi5HcnBjRXhhbXBsZS5TZXJ2",
-            "aWNlcy5Ub2RvSAASLAoFZXJyb3IYAyABKAsyGy5HcnBjRXhhbXBsZS5TZXJ2",
-            "aWNlcy5FcnJvckgAQgoKCHJlc3BvbnNlIhsKDURlbGV0ZVJlcXVlc3QSCgoC",
-            "aWQYASABKAUiPgoORGVsZXRlUmVzcG9uc2USLAoGc3RhdHVzGAEgASgOMhwu",
-            "R3JwY0V4YW1wbGUuU2VydmljZXMuU3RhdHVzKhwKBlN0YXR1cxIGCgJPSxAA",
-            "EgoKBkZBSUxFRBABMr8CCgtUb2RvU2VydmljZRJKCgZDcmVhdGUSGi5HcnBj",
-            "RXhhbXBsZS5TZXJ2aWNlcy5Ub2RvGiIuR3JwY0V4YW1wbGUuU2VydmljZXMu",
-            "VG9kb1Jlc3BvbnNlIgASSgoGVXBkYXRlEhouR3JwY0V4YW1wbGUuU2Vydmlj",
-            "ZXMuVG9kbxoiLkdycGNFeGFtcGxlLlNlcnZpY2VzLlRvZG9SZXNwb25zZSIA",
-            "ElUKBkRlbGV0ZRIjLkdycGNFeGFtcGxlLlNlcnZpY2VzLkRlbGV0ZVJlcXVl",
-            "c3QaJC5HcnBjRXhhbXBsZS5TZXJ2aWNlcy5EZWxldGVSZXNwb25zZSIAEkEK",
-            "BExpc3QSGi5HcnBjRXhhbXBsZS5TZXJ2aWNlcy5Wb2lkGhsuR3JwY0V4YW1w",
-            "bGUuU2VydmljZXMuVG9kb3MiAGIGcHJvdG8z"));
+            "CgRWb2lkIhwKDkdldFRvZG9SZXF1ZXN0EgoKAmlkGAEgASgFIi4KBFRvZG8S",
+            "CgoCaWQYASABKAUSDAoEdGV4dBgCIAEoCRIMCgRkb25lGAMgASgIIjIKBVRv",
+            "ZG9zEikKBXRvZG9zGAEgAygLMhouR3JwY0V4YW1wbGUuU2VydmljZXMuVG9k",
+            "byIVCgVFcnJvchIMCgR0ZXh0GAEgASgJIqIBCgxUb2RvUmVzcG9uc2USLAoG",
+            "c3RhdHVzGAEgASgOMhwuR3JwY0V4YW1wbGUuU2VydmljZXMuU3RhdHVzEioK",
+            "BHRvZG8YAiABKAsyGi5HcnBjRXhhbXBsZS5TZXJ2aWNlcy5Ub2RvSAASLAoF",
+            "ZXJyb3IYAyABKAsyGy5HcnBjRXhhbXBsZS5TZXJ2aWNlcy5FcnJvckgAQgoK",
+            "CHJlc3BvbnNlIhsKDURlbGV0ZVJlcXVlc3QSCgoCaWQYASABKAUiPgoORGVs",
+            "ZXRlUmVzcG9uc2USLAoGc3RhdHVzGAEgASgOMhwuR3JwY0V4YW1wbGUuU2Vy",
+            "dmljZXMuU3RhdHVzKhwKBlN0YXR1cxIGCgJPSxAAEgoKBkZBSUxFRBABMpID",
+            "CgtUb2RvU2VydmljZRJKCgZDcmVhdGUSGi5HcnBjRXhhbXBsZS5TZXJ2aWNl",
+            "cy5Ub2RvGiIuR3JwY0V4YW1wbGUuU2VydmljZXMuVG9kb1Jlc3BvbnNlIgAS",
+            "SgoGVXBkYXRlEhouR3JwY0V4YW1wbGUuU2VydmljZXMuVG9kbxoiLkdycGNF",
+            "eGFtcGxlLlNlcnZpY2VzLlRvZG9SZXNwb25zZSIAElEKA0dldBIkLkdycGNF",
+            "eGFtcGxlLlNlcnZpY2VzLkdldFRvZG9SZXF1ZXN0GiIuR3JwY0V4YW1wbGUu",
+            "U2VydmljZXMuVG9kb1Jlc3BvbnNlIgASVQoGRGVsZXRlEiMuR3JwY0V4YW1w",
+            "bGUuU2VydmljZXMuRGVsZXRlUmVxdWVzdBokLkdycGNFeGFtcGxlLlNlcnZp",
+            "Y2VzLkRlbGV0ZVJlc3BvbnNlIgASQQoETGlzdBIaLkdycGNFeGFtcGxlLlNl",
+            "cnZpY2VzLlZvaWQaGy5HcnBjRXhhbXBsZS5TZXJ2aWNlcy5Ub2RvcyIAYgZw",
+            "cm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GrpcExample.Services.Status), }, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::GrpcExample.Services.Void), global::GrpcExample.Services.Void.Parser, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::GrpcExample.Services.GetTodoRequest), global::GrpcExample.Services.GetTodoRequest.Parser, new[]{ "Id" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::GrpcExample.Services.Todo), global::GrpcExample.Services.Todo.Parser, new[]{ "Id", "Text", "Done" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::GrpcExample.Services.Todos), global::GrpcExample.Services.Todos.Parser, new[]{ "Todos_" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::GrpcExample.Services.Error), global::GrpcExample.Services.Error.Parser, new[]{ "Text" }, null, null, null),
@@ -56,6 +60,9 @@ namespace GrpcExample.Services {
 
   }
   #region Enums
+  /// <summary>
+  /// Status of the service operation
+  /// </summary>
   public enum Status {
     /// <summary>
     /// First Enum must be 0
@@ -159,6 +166,123 @@ namespace GrpcExample.Services {
 
   }
 
+  public sealed partial class GetTodoRequest : pb::IMessage<GetTodoRequest> {
+    private static readonly pb::MessageParser<GetTodoRequest> _parser = new pb::MessageParser<GetTodoRequest>(() => new GetTodoRequest());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<GetTodoRequest> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::GrpcExample.Services.TodoReflection.Descriptor.MessageTypes[1]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GetTodoRequest() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GetTodoRequest(GetTodoRequest other) : this() {
+      id_ = other.id_;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GetTodoRequest Clone() {
+      return new GetTodoRequest(this);
+    }
+
+    /// <summary>Field number for the "id" field.</summary>
+    public const int IdFieldNumber = 1;
+    private int id_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int Id {
+      get { return id_; }
+      set {
+        id_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as GetTodoRequest);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(GetTodoRequest other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Id != other.Id) return false;
+      return true;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Id != 0) hash ^= Id.GetHashCode();
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (Id != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(Id);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (Id != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Id);
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(GetTodoRequest other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Id != 0) {
+        Id = other.Id;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            Id = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
   public sealed partial class Todo : pb::IMessage<Todo> {
     private static readonly pb::MessageParser<Todo> _parser = new pb::MessageParser<Todo>(() => new Todo());
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -166,7 +290,7 @@ namespace GrpcExample.Services {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::GrpcExample.Services.TodoReflection.Descriptor.MessageTypes[1]; }
+      get { return global::GrpcExample.Services.TodoReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -339,7 +463,7 @@ namespace GrpcExample.Services {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::GrpcExample.Services.TodoReflection.Descriptor.MessageTypes[2]; }
+      get { return global::GrpcExample.Services.TodoReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -448,7 +572,7 @@ namespace GrpcExample.Services {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::GrpcExample.Services.TodoReflection.Descriptor.MessageTypes[3]; }
+      get { return global::GrpcExample.Services.TodoReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -565,7 +689,7 @@ namespace GrpcExample.Services {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::GrpcExample.Services.TodoReflection.Descriptor.MessageTypes[4]; }
+      get { return global::GrpcExample.Services.TodoReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -785,7 +909,7 @@ namespace GrpcExample.Services {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::GrpcExample.Services.TodoReflection.Descriptor.MessageTypes[5]; }
+      get { return global::GrpcExample.Services.TodoReflection.Descriptor.MessageTypes[6]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -902,7 +1026,7 @@ namespace GrpcExample.Services {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::GrpcExample.Services.TodoReflection.Descriptor.MessageTypes[6]; }
+      get { return global::GrpcExample.Services.TodoReflection.Descriptor.MessageTypes[7]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
