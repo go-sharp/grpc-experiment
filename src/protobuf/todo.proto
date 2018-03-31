@@ -1,47 +1,15 @@
 syntax = "proto3";
 
-import "google/api/annotations.proto";
-import "protoc-gen-swagger/options/annotations.proto";
 
 package GrpcExample.Services;
-option go_package = "grpcproxy";
-option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
-            info: {
-                title: "TodoService"
-                description: "An example grpc service"
-                version: "1.0.0"
-            };
-    };
 
 // TodoService
 service TodoService {
-    rpc Create(Todo) returns (TodoResponse) {
-        option (google.api.http) = {
-            post: "/v1/todo"
-            body: "*"
-        };
-    }
-    rpc Update(Todo) returns (TodoResponse) {
-        option (google.api.http) = {
-            post: "/v1/todo/{id}"
-            body: "*"
-        };
-    }
-    rpc Get(GetTodoRequest) returns (TodoResponse) {
-        option (google.api.http) = {
-            get: "/v1/todo/{id}"
-        };
-    }
-    rpc Delete(DeleteRequest) returns (DeleteResponse) {
-        option (google.api.http) = {
-            delete: "/v1/todo/{id}"
-        };
-    }
-    rpc List(Void) returns (Todos) {
-        option (google.api.http) = {
-            get: "/v1/todo"
-        };
-    }
+    rpc Create(Todo) returns (TodoResponse) {}
+    rpc Update(Todo) returns (TodoResponse) {}
+    rpc Get(GetTodoRequest) returns (TodoResponse) {}
+    rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+    rpc List(Void) returns (Todos) {}
 }
 
 // Status of the service operation
