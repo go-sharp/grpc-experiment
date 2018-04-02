@@ -34,7 +34,7 @@ func run() error {
 	dispatcher.Handle("/v1/", mux)
 	dispatcher.Handle("/swagger/", http.StripPrefix("/swagger", http.FileServer(http.Dir("./swagger"))))
 	dispatcher.HandleFunc("/swagger.json", func(w http.ResponseWriter, r *http.Request) {
-		content, err := ioutil.ReadFile("./todo.swagger.json")
+		content, err := ioutil.ReadFile("./proxy.swagger.json")
 		if err != nil {
 			fmt.Fprintf(w, "%v", err)
 			return

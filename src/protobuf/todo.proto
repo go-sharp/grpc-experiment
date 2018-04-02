@@ -5,23 +5,17 @@ package GrpcExample.Services;
 
 // TodoService
 service TodoService {
-    rpc Create(Todo) returns (TodoResponse) {}
-    rpc Update(Todo) returns (TodoResponse) {}
-    rpc Get(GetTodoRequest) returns (TodoResponse) {}
-    rpc Delete(DeleteRequest) returns (DeleteResponse) {}
-    rpc List(Void) returns (Todos) {}
-}
-
-// Status of the service operation
-enum Status {
-    OK = 0; // First Enum must be 0
-    FAILED = 1;
+    rpc Create(Todo) returns (Todo) {}
+    rpc Update(Todo) returns (Todo) {}
+    rpc Get(TodoRequest) returns (Todo) {}
+    rpc Delete(DeleteRequest) returns (Empty) {}
+    rpc List(Empty) returns (Todos) {}
 }
 
 // Every Service needs a message and this is an empty message
-message Void {}
+message Empty {}
 
-message GetTodoRequest {
+message TodoRequest {
     int32 id = 1;
 }
 
@@ -35,22 +29,6 @@ message Todos {
     repeated Todo todos = 1;
 }
 
-message Error {
-    string text = 1;
-}
-
-message TodoResponse {
-    Status status = 1;
-    oneof response {
-        Todo todo = 2;
-        Error error = 3;
-    }
-}
-
 message DeleteRequest {
     int32 id = 1;
-}
-
-message DeleteResponse {
-    Status status = 1;
 }

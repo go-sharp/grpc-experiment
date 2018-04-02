@@ -77,7 +77,7 @@ func request_TodoService_Update_0(ctx context.Context, marshaler runtime.Marshal
 }
 
 func request_TodoService_Get_0(ctx context.Context, marshaler runtime.Marshaler, client TodoServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetTodoRequest
+	var protoReq TodoRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -131,7 +131,7 @@ func request_TodoService_Delete_0(ctx context.Context, marshaler runtime.Marshal
 }
 
 func request_TodoService_List_0(ctx context.Context, marshaler runtime.Marshaler, client TodoServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq Void
+	var protoReq Empty
 	var metadata runtime.ServerMetadata
 
 	msg, err := client.List(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))

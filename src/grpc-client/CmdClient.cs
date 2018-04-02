@@ -71,9 +71,10 @@ TodoService Commandline Interface:
                 bool.TryParse(done, out isDone);
                 todo.Done = isDone;
 
-                this.WriteTodoResponse(this.Client.Update(todo));
+                this.Client.Update(todo);
+                this.Write("success", ConsoleColor.Green);
             }
-            catch (Exception e) when (e.GetType() != typeof(ArgumentException))
+            catch (Exception e)
             {
                 this.LogError(e);
             }
@@ -84,12 +85,8 @@ TodoService Commandline Interface:
             try
             {
                 var todo = this.GetTodo();
-                var response = this.Client.Delete(new DeleteRequest{ Id = todo.Id });
-                if(response.Status == Status.Failed) {
-                    this.Write("failed\n", ConsoleColor.Red);
-                } else {
-                    this.Write("success\n", ConsoleColor.Green);
-                }
+                var response = this.Client.Delete(new DeleteRequest { Id = todo.Id });
+                this.Write("success\n", ConsoleColor.Green);
             }
             catch (Exception e)
             {
@@ -104,8 +101,8 @@ TodoService Commandline Interface:
                 var todo = this.GetTodo();
                 Console.WriteLine(todo.FormattedString);
             }
-            catch (ArgumentException) {}
-            catch (Exception e) 
+            catch (ArgumentException) { }
+            catch (Exception e)
             {
                 this.LogError(e);
             }
@@ -115,14 +112,14 @@ TodoService Commandline Interface:
         {
             try
             {
-                var todos = this.Client.List(new Services.Void());
+                var todos = this.Client.List(new Empty());
 
                 foreach (var todo in todos.Todos_)
                 {
                     Console.WriteLine(todo.FormattedString);
                 }
             }
-            catch (ArgumentException) {}
+            catch (ArgumentException) { }
             catch (Exception e)
             {
                 this.LogError(e);
@@ -143,7 +140,8 @@ TodoService Commandline Interface:
                 bool.TryParse(done, out isDone);
                 todo.Done = isDone;
 
-                this.WriteTodoResponse(this.Client.Create(todo));
+                this.Client.Create(todo);
+                this.Write("success", ConsoleColor.Green);
             }
             catch (Exception e)
             {
@@ -164,17 +162,6 @@ TodoService Commandline Interface:
             Console.ForegroundColor = original;
         }
 
-        private void WriteTodoResponse(TodoResponse response)
-        {
-            if (response.Status == Status.Failed)
-            {
-                this.Write("failed: ", ConsoleColor.Red);
-                Console.WriteLine(response.Error?.Text);
-                return;
-            }
-
-            this.Write("success\n", ConsoleColor.Green);
-        }
 
         private Todo GetTodo()
         {
@@ -187,15 +174,8 @@ TodoService Commandline Interface:
                 throw new ArgumentException("invalid id");
             }
 
-            var response = this.Client.Get(new GetTodoRequest() { Id = id });
-            if (response.Status == Status.Failed)
-            {
-                this.Write("failed: ", ConsoleColor.Red);
-                Console.WriteLine(response.Error?.Text);
-                throw new ArgumentException("invalid id");
-            }
             Console.WriteLine("");
-            return response.Todo;
+            return this.Client.Get(new TodoRequest() { Id = id });
         }
     }
 }

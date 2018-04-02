@@ -37,7 +37,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/ServicesTodoResponse"
+              "$ref": "#/definitions/ServicesTodo"
             }
           }
         },
@@ -63,7 +63,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/ServicesTodoResponse"
+              "$ref": "#/definitions/ServicesTodo"
             }
           }
         },
@@ -86,7 +86,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/ServicesDeleteResponse"
+              "$ref": "#/definitions/ServicesEmpty"
             }
           }
         },
@@ -109,7 +109,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/ServicesTodoResponse"
+              "$ref": "#/definitions/ServicesTodo"
             }
           }
         },
@@ -137,30 +137,9 @@
     }
   },
   "definitions": {
-    "ServicesDeleteResponse": {
+    "ServicesEmpty": {
       "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/ServicesStatus"
-        }
-      }
-    },
-    "ServicesError": {
-      "type": "object",
-      "properties": {
-        "text": {
-          "type": "string"
-        }
-      }
-    },
-    "ServicesStatus": {
-      "type": "string",
-      "enum": [
-        "OK",
-        "FAILED"
-      ],
-      "default": "OK",
-      "title": "Status of the service operation"
+      "title": "Every Service needs a message and this is an empty message"
     },
     "ServicesTodo": {
       "type": "object",
@@ -175,20 +154,6 @@
         "done": {
           "type": "boolean",
           "format": "boolean"
-        }
-      }
-    },
-    "ServicesTodoResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/ServicesStatus"
-        },
-        "todo": {
-          "$ref": "#/definitions/ServicesTodo"
-        },
-        "error": {
-          "$ref": "#/definitions/ServicesError"
         }
       }
     },

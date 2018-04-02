@@ -8,14 +8,11 @@ It is generated from these files:
 	proxy.proto
 
 It has these top-level messages:
-	Void
-	GetTodoRequest
+	Empty
+	TodoRequest
 	Todo
 	Todos
-	Error
-	TodoResponse
 	DeleteRequest
-	DeleteResponse
 */
 package grpcproxy
 
@@ -41,47 +38,25 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
-// Status of the service operation
-type Status int32
-
-const (
-	Status_OK     Status = 0
-	Status_FAILED Status = 1
-)
-
-var Status_name = map[int32]string{
-	0: "OK",
-	1: "FAILED",
-}
-var Status_value = map[string]int32{
-	"OK":     0,
-	"FAILED": 1,
-}
-
-func (x Status) String() string {
-	return proto.EnumName(Status_name, int32(x))
-}
-func (Status) EnumDescriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
-
 // Every Service needs a message and this is an empty message
-type Void struct {
+type Empty struct {
 }
 
-func (m *Void) Reset()                    { *m = Void{} }
-func (m *Void) String() string            { return proto.CompactTextString(m) }
-func (*Void) ProtoMessage()               {}
-func (*Void) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
+func (m *Empty) Reset()                    { *m = Empty{} }
+func (m *Empty) String() string            { return proto.CompactTextString(m) }
+func (*Empty) ProtoMessage()               {}
+func (*Empty) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
 
-type GetTodoRequest struct {
+type TodoRequest struct {
 	Id int32 `protobuf:"varint,1,opt,name=id" json:"id,omitempty"`
 }
 
-func (m *GetTodoRequest) Reset()                    { *m = GetTodoRequest{} }
-func (m *GetTodoRequest) String() string            { return proto.CompactTextString(m) }
-func (*GetTodoRequest) ProtoMessage()               {}
-func (*GetTodoRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{1} }
+func (m *TodoRequest) Reset()                    { *m = TodoRequest{} }
+func (m *TodoRequest) String() string            { return proto.CompactTextString(m) }
+func (*TodoRequest) ProtoMessage()               {}
+func (*TodoRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{1} }
 
-func (m *GetTodoRequest) GetId() int32 {
+func (m *TodoRequest) GetId() int32 {
 	if m != nil {
 		return m.Id
 	}
@@ -136,151 +111,6 @@ func (m *Todos) GetTodos() []*Todo {
 	return nil
 }
 
-type Error struct {
-	Text string `protobuf:"bytes,1,opt,name=text" json:"text,omitempty"`
-}
-
-func (m *Error) Reset()                    { *m = Error{} }
-func (m *Error) String() string            { return proto.CompactTextString(m) }
-func (*Error) ProtoMessage()               {}
-func (*Error) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{4} }
-
-func (m *Error) GetText() string {
-	if m != nil {
-		return m.Text
-	}
-	return ""
-}
-
-type TodoResponse struct {
-	Status Status `protobuf:"varint,1,opt,name=status,enum=GrpcExample.Services.Status" json:"status,omitempty"`
-	// Types that are valid to be assigned to Response:
-	//	*TodoResponse_Todo
-	//	*TodoResponse_Error
-	Response isTodoResponse_Response `protobuf_oneof:"response"`
-}
-
-func (m *TodoResponse) Reset()                    { *m = TodoResponse{} }
-func (m *TodoResponse) String() string            { return proto.CompactTextString(m) }
-func (*TodoResponse) ProtoMessage()               {}
-func (*TodoResponse) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{5} }
-
-type isTodoResponse_Response interface {
-	isTodoResponse_Response()
-}
-
-type TodoResponse_Todo struct {
-	Todo *Todo `protobuf:"bytes,2,opt,name=todo,oneof"`
-}
-type TodoResponse_Error struct {
-	Error *Error `protobuf:"bytes,3,opt,name=error,oneof"`
-}
-
-func (*TodoResponse_Todo) isTodoResponse_Response()  {}
-func (*TodoResponse_Error) isTodoResponse_Response() {}
-
-func (m *TodoResponse) GetResponse() isTodoResponse_Response {
-	if m != nil {
-		return m.Response
-	}
-	return nil
-}
-
-func (m *TodoResponse) GetStatus() Status {
-	if m != nil {
-		return m.Status
-	}
-	return Status_OK
-}
-
-func (m *TodoResponse) GetTodo() *Todo {
-	if x, ok := m.GetResponse().(*TodoResponse_Todo); ok {
-		return x.Todo
-	}
-	return nil
-}
-
-func (m *TodoResponse) GetError() *Error {
-	if x, ok := m.GetResponse().(*TodoResponse_Error); ok {
-		return x.Error
-	}
-	return nil
-}
-
-// XXX_OneofFuncs is for the internal use of the proto package.
-func (*TodoResponse) XXX_OneofFuncs() (func(msg proto.Message, b *proto.Buffer) error, func(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error), func(msg proto.Message) (n int), []interface{}) {
-	return _TodoResponse_OneofMarshaler, _TodoResponse_OneofUnmarshaler, _TodoResponse_OneofSizer, []interface{}{
-		(*TodoResponse_Todo)(nil),
-		(*TodoResponse_Error)(nil),
-	}
-}
-
-func _TodoResponse_OneofMarshaler(msg proto.Message, b *proto.Buffer) error {
-	m := msg.(*TodoResponse)
-	// response
-	switch x := m.Response.(type) {
-	case *TodoResponse_Todo:
-		b.EncodeVarint(2<<3 | proto.WireBytes)
-		if err := b.EncodeMessage(x.Todo); err != nil {
-			return err
-		}
-	case *TodoResponse_Error:
-		b.EncodeVarint(3<<3 | proto.WireBytes)
-		if err := b.EncodeMessage(x.Error); err != nil {
-			return err
-		}
-	case nil:
-	default:
-		return fmt.Errorf("TodoResponse.Response has unexpected type %T", x)
-	}
-	return nil
-}
-
-func _TodoResponse_OneofUnmarshaler(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error) {
-	m := msg.(*TodoResponse)
-	switch tag {
-	case 2: // response.todo
-		if wire != proto.WireBytes {
-			return true, proto.ErrInternalBadWireType
-		}
-		msg := new(Todo)
-		err := b.DecodeMessage(msg)
-		m.Response = &TodoResponse_Todo{msg}
-		return true, err
-	case 3: // response.error
-		if wire != proto.WireBytes {
-			return true, proto.ErrInternalBadWireType
-		}
-		msg := new(Error)
-		err := b.DecodeMessage(msg)
-		m.Response = &TodoResponse_Error{msg}
-		return true, err
-	default:
-		return false, nil
-	}
-}
-
-func _TodoResponse_OneofSizer(msg proto.Message) (n int) {
-	m := msg.(*TodoResponse)
-	// response
-	switch x := m.Response.(type) {
-	case *TodoResponse_Todo:
-		s := proto.Size(x.Todo)
-		n += proto.SizeVarint(2<<3 | proto.WireBytes)
-		n += proto.SizeVarint(uint64(s))
-		n += s
-	case *TodoResponse_Error:
-		s := proto.Size(x.Error)
-		n += proto.SizeVarint(3<<3 | proto.WireBytes)
-		n += proto.SizeVarint(uint64(s))
-		n += s
-	case nil:
-	default:
-		panic(fmt.Sprintf("proto: unexpected type %T in oneof", x))
-	}
-	return n
-}
-
 type DeleteRequest struct {
 	Id int32 `protobuf:"varint,1,opt,name=id" json:"id,omitempty"`
 }
@@ -288,7 +118,7 @@ type DeleteRequest struct {
 func (m *DeleteRequest) Reset()                    { *m = DeleteRequest{} }
 func (m *DeleteRequest) String() string            { return proto.CompactTextString(m) }
 func (*DeleteRequest) ProtoMessage()               {}
-func (*DeleteRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{6} }
+func (*DeleteRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{4} }
 
 func (m *DeleteRequest) GetId() int32 {
 	if m != nil {
@@ -297,32 +127,12 @@ func (m *DeleteRequest) GetId() int32 {
 	return 0
 }
 
-type DeleteResponse struct {
-	Status Status `protobuf:"varint,1,opt,name=status,enum=GrpcExample.Services.Status" json:"status,omitempty"`
-}
-
-func (m *DeleteResponse) Reset()                    { *m = DeleteResponse{} }
-func (m *DeleteResponse) String() string            { return proto.CompactTextString(m) }
-func (*DeleteResponse) ProtoMessage()               {}
-func (*DeleteResponse) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{7} }
-
-func (m *DeleteResponse) GetStatus() Status {
-	if m != nil {
-		return m.Status
-	}
-	return Status_OK
-}
-
 func init() {
-	proto.RegisterType((*Void)(nil), "GrpcExample.Services.Void")
-	proto.RegisterType((*GetTodoRequest)(nil), "GrpcExample.Services.GetTodoRequest")
+	proto.RegisterType((*Empty)(nil), "GrpcExample.Services.Empty")
+	proto.RegisterType((*TodoRequest)(nil), "GrpcExample.Services.TodoRequest")
 	proto.RegisterType((*Todo)(nil), "GrpcExample.Services.Todo")
 	proto.RegisterType((*Todos)(nil), "GrpcExample.Services.Todos")
-	proto.RegisterType((*Error)(nil), "GrpcExample.Services.Error")
-	proto.RegisterType((*TodoResponse)(nil), "GrpcExample.Services.TodoResponse")
 	proto.RegisterType((*DeleteRequest)(nil), "GrpcExample.Services.DeleteRequest")
-	proto.RegisterType((*DeleteResponse)(nil), "GrpcExample.Services.DeleteResponse")
-	proto.RegisterEnum("GrpcExample.Services.Status", Status_name, Status_value)
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -336,11 +146,11 @@ const _ = grpc.SupportPackageIsVersion4
 // Client API for TodoService service
 
 type TodoServiceClient interface {
-	Create(ctx context.Context, in *Todo, opts ...grpc.CallOption) (*TodoResponse, error)
-	Update(ctx context.Context, in *Todo, opts ...grpc.CallOption) (*TodoResponse, error)
-	Get(ctx context.Context, in *GetTodoRequest, opts ...grpc.CallOption) (*TodoResponse, error)
-	Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*DeleteResponse, error)
-	List(ctx context.Context, in *Void, opts ...grpc.CallOption) (*Todos, error)
+	Create(ctx context.Context, in *Todo, opts ...grpc.CallOption) (*Todo, error)
+	Update(ctx context.Context, in *Todo, opts ...grpc.CallOption) (*Todo, error)
+	Get(ctx context.Context, in *TodoRequest, opts ...grpc.CallOption) (*Todo, error)
+	Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*Empty, error)
+	List(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Todos, error)
 }
 
 type todoServiceClient struct {
@@ -351,8 +161,8 @@ func NewTodoServiceClient(cc *grpc.ClientConn) TodoServiceClient {
 	return &todoServiceClient{cc}
 }
 
-func (c *todoServiceClient) Create(ctx context.Context, in *Todo, opts ...grpc.CallOption) (*TodoResponse, error) {
-	out := new(TodoResponse)
+func (c *todoServiceClient) Create(ctx context.Context, in *Todo, opts ...grpc.CallOption) (*Todo, error) {
+	out := new(Todo)
 	err := grpc.Invoke(ctx, "/GrpcExample.Services.TodoService/Create", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
@@ -360,8 +170,8 @@ func (c *todoServiceClient) Create(ctx context.Context, in *Todo, opts ...grpc.C
 	return out, nil
 }
 
-func (c *todoServiceClient) Update(ctx context.Context, in *Todo, opts ...grpc.CallOption) (*TodoResponse, error) {
-	out := new(TodoResponse)
+func (c *todoServiceClient) Update(ctx context.Context, in *Todo, opts ...grpc.CallOption) (*Todo, error) {
+	out := new(Todo)
 	err := grpc.Invoke(ctx, "/GrpcExample.Services.TodoService/Update", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
@@ -369,8 +179,8 @@ func (c *todoServiceClient) Update(ctx context.Context, in *Todo, opts ...grpc.C
 	return out, nil
 }
 
-func (c *todoServiceClient) Get(ctx context.Context, in *GetTodoRequest, opts ...grpc.CallOption) (*TodoResponse, error) {
-	out := new(TodoResponse)
+func (c *todoServiceClient) Get(ctx context.Context, in *TodoRequest, opts ...grpc.CallOption) (*Todo, error) {
+	out := new(Todo)
 	err := grpc.Invoke(ctx, "/GrpcExample.Services.TodoService/Get", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
@@ -378,8 +188,8 @@ func (c *todoServiceClient) Get(ctx context.Context, in *GetTodoRequest, opts ..
 	return out, nil
 }
 
-func (c *todoServiceClient) Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*DeleteResponse, error) {
-	out := new(DeleteResponse)
+func (c *todoServiceClient) Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
 	err := grpc.Invoke(ctx, "/GrpcExample.Services.TodoService/Delete", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
@@ -387,7 +197,7 @@ func (c *todoServiceClient) Delete(ctx context.Context, in *DeleteRequest, opts 
 	return out, nil
 }
 
-func (c *todoServiceClient) List(ctx context.Context, in *Void, opts ...grpc.CallOption) (*Todos, error) {
+func (c *todoServiceClient) List(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Todos, error) {
 	out := new(Todos)
 	err := grpc.Invoke(ctx, "/GrpcExample.Services.TodoService/List", in, out, c.cc, opts...)
 	if err != nil {
@@ -399,11 +209,11 @@ func (c *todoServiceClient) List(ctx context.Context, in *Void, opts ...grpc.Cal
 // Server API for TodoService service
 
 type TodoServiceServer interface {
-	Create(context.Context, *Todo) (*TodoResponse, error)
-	Update(context.Context, *Todo) (*TodoResponse, error)
-	Get(context.Context, *GetTodoRequest) (*TodoResponse, error)
-	Delete(context.Context, *DeleteRequest) (*DeleteResponse, error)
-	List(context.Context, *Void) (*Todos, error)
+	Create(context.Context, *Todo) (*Todo, error)
+	Update(context.Context, *Todo) (*Todo, error)
+	Get(context.Context, *TodoRequest) (*Todo, error)
+	Delete(context.Context, *DeleteRequest) (*Empty, error)
+	List(context.Context, *Empty) (*Todos, error)
 }
 
 func RegisterTodoServiceServer(s *grpc.Server, srv TodoServiceServer) {
@@ -447,7 +257,7 @@ func _TodoService_Update_Handler(srv interface{}, ctx context.Context, dec func(
 }
 
 func _TodoService_Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetTodoRequest)
+	in := new(TodoRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -459,7 +269,7 @@ func _TodoService_Get_Handler(srv interface{}, ctx context.Context, dec func(int
 		FullMethod: "/GrpcExample.Services.TodoService/Get",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TodoServiceServer).Get(ctx, req.(*GetTodoRequest))
+		return srv.(TodoServiceServer).Get(ctx, req.(*TodoRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -483,7 +293,7 @@ func _TodoService_Delete_Handler(srv interface{}, ctx context.Context, dec func(
 }
 
 func _TodoService_List_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Void)
+	in := new(Empty)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -495,7 +305,7 @@ func _TodoService_List_Handler(srv interface{}, ctx context.Context, dec func(in
 		FullMethod: "/GrpcExample.Services.TodoService/List",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TodoServiceServer).List(ctx, req.(*Void))
+		return srv.(TodoServiceServer).List(ctx, req.(*Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -532,38 +342,31 @@ var _TodoService_serviceDesc = grpc.ServiceDesc{
 func init() { proto.RegisterFile("proxy.proto", fileDescriptor0) }
 
 var fileDescriptor0 = []byte{
-	// 525 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x54, 0xdd, 0x8e, 0xd2, 0x40,
-	0x14, 0xa6, 0x40, 0x1b, 0xf6, 0x20, 0x48, 0x46, 0x8d, 0xa4, 0x90, 0xd8, 0x8c, 0x7b, 0x41, 0x88,
-	0xb4, 0x2c, 0xeb, 0x8d, 0x26, 0x9a, 0xb0, 0x2e, 0xcb, 0x1a, 0x37, 0x31, 0x76, 0xd5, 0x0b, 0x13,
-	0x2f, 0xba, 0xf4, 0xd8, 0xd4, 0x60, 0xa7, 0xce, 0xcc, 0xae, 0x18, 0xe3, 0x8d, 0x8f, 0xa0, 0x0f,
-	0xe3, 0x83, 0xf8, 0x0a, 0xbe, 0x83, 0xb7, 0x66, 0xa6, 0xb0, 0xa6, 0x6b, 0x21, 0x26, 0xee, 0x15,
-	0x93, 0x33, 0xdf, 0xf9, 0x7e, 0xce, 0xa1, 0x03, 0xf5, 0x94, 0xb3, 0xc5, 0x47, 0x37, 0xe5, 0x4c,
-	0x32, 0x72, 0x7d, 0xca, 0xd3, 0xd9, 0x64, 0x11, 0xbc, 0x4b, 0xe7, 0xe8, 0x1e, 0x23, 0x3f, 0x8b,
-	0x67, 0x28, 0xec, 0x6e, 0xc4, 0x58, 0x34, 0x47, 0x2f, 0x48, 0x63, 0x2f, 0x48, 0x12, 0x26, 0x03,
-	0x19, 0xb3, 0x44, 0x64, 0x3d, 0xf6, 0x1d, 0xfd, 0x33, 0x1b, 0x44, 0x98, 0x0c, 0xc4, 0x87, 0x20,
-	0x8a, 0x90, 0x7b, 0x2c, 0xd5, 0x88, 0xbf, 0xd1, 0xd4, 0x82, 0xea, 0x4b, 0x16, 0x87, 0xd4, 0x81,
-	0xe6, 0x14, 0xe5, 0x73, 0x16, 0x32, 0x1f, 0xdf, 0x9f, 0xa2, 0x90, 0xa4, 0x09, 0xe5, 0x38, 0x6c,
-	0x1b, 0x8e, 0xd1, 0x33, 0xfd, 0x72, 0x1c, 0xd2, 0x87, 0x50, 0x55, 0xd7, 0x17, 0xeb, 0x84, 0x40,
-	0x55, 0xe2, 0x42, 0xb6, 0xcb, 0x8e, 0xd1, 0xdb, 0xf2, 0xf5, 0x59, 0xd5, 0x42, 0x96, 0x60, 0xbb,
-	0xe2, 0x18, 0xbd, 0x9a, 0xaf, 0xcf, 0xf4, 0x1e, 0x98, 0xaa, 0x5f, 0x90, 0x21, 0x98, 0x52, 0x1d,
-	0xda, 0x86, 0x53, 0xe9, 0xd5, 0x47, 0xb6, 0x5b, 0x14, 0xd2, 0xd5, 0x56, 0x32, 0x20, 0xed, 0x80,
-	0x39, 0xe1, 0x9c, 0xf1, 0x73, 0x2d, 0xe3, 0x8f, 0x16, 0xfd, 0x6e, 0xc0, 0x95, 0xcc, 0xb7, 0x48,
-	0x59, 0x22, 0x90, 0xdc, 0x05, 0x4b, 0xc8, 0x40, 0x9e, 0x0a, 0x0d, 0x6b, 0x8e, 0xba, 0xc5, 0x02,
-	0xc7, 0x1a, 0xe3, 0x2f, 0xb1, 0x64, 0x08, 0x55, 0x25, 0xa6, 0x63, 0x6c, 0x34, 0x75, 0x58, 0xf2,
-	0x35, 0x92, 0xec, 0x82, 0x89, 0xca, 0x95, 0x4e, 0x59, 0x1f, 0x75, 0x8a, 0x5b, 0xb4, 0xf1, 0xc3,
-	0x92, 0x9f, 0x61, 0xf7, 0x00, 0x6a, 0x7c, 0x69, 0x94, 0xde, 0x82, 0xc6, 0x3e, 0xce, 0x51, 0xe2,
-	0xba, 0x91, 0x1f, 0x40, 0x73, 0x05, 0xf8, 0x9f, 0x6c, 0xfd, 0x2e, 0x58, 0x59, 0x85, 0x58, 0x50,
-	0x7e, 0xfa, 0xa4, 0x55, 0x22, 0x00, 0xd6, 0xc1, 0xf8, 0xf1, 0xd1, 0x64, 0xbf, 0x65, 0x8c, 0x7e,
-	0x55, 0xa0, 0xae, 0x82, 0x2d, 0xbb, 0xc9, 0x6b, 0xb0, 0x1e, 0x71, 0x0c, 0x24, 0x92, 0x0d, 0x53,
-	0xb0, 0xe9, 0x86, 0xb5, 0xad, 0x02, 0x5e, 0xfb, 0xf2, 0xe3, 0xe7, 0xb7, 0x72, 0x83, 0xd6, 0xbc,
-	0xb3, 0x1d, 0x4f, 0xcd, 0xec, 0xbe, 0xd1, 0x27, 0x27, 0x60, 0xbd, 0x48, 0xc3, 0xcb, 0xa0, 0x6f,
-	0x6b, 0x7a, 0x42, 0x1b, 0x2b, 0x7a, 0xef, 0x53, 0x1c, 0x7e, 0x56, 0x1a, 0x6f, 0xa0, 0x32, 0x45,
-	0x49, 0xb6, 0x8b, 0x49, 0xf2, 0x7f, 0xf4, 0x7f, 0x92, 0xba, 0xa1, 0xa5, 0xae, 0x92, 0xbc, 0x14,
-	0x79, 0x0b, 0x56, 0xb6, 0x20, 0x72, 0xbb, 0x98, 0x24, 0xb7, 0x5f, 0x7b, 0x7b, 0x33, 0x28, 0xaf,
-	0xd5, 0xbf, 0xa0, 0xf5, 0x0c, 0xaa, 0x47, 0xb1, 0x90, 0xeb, 0xa6, 0xa6, 0xbe, 0x62, 0xbb, 0xb3,
-	0x3e, 0x8a, 0xa0, 0x2d, 0xcd, 0x0b, 0xe4, 0x7c, 0x1b, 0x7b, 0x0f, 0xbe, 0x8e, 0x3d, 0x32, 0xc8,
-	0x6f, 0xff, 0xe6, 0x38, 0x71, 0x30, 0x23, 0x70, 0x22, 0x9e, 0xce, 0x1c, 0x91, 0x5d, 0x8c, 0xcc,
-	0x1d, 0x77, 0xe8, 0x0e, 0x5f, 0x6d, 0xa9, 0xa2, 0x7e, 0xa3, 0x4e, 0x2c, 0xfd, 0x84, 0xec, 0xfe,
-	0x0e, 0x00, 0x00, 0xff, 0xff, 0x30, 0x82, 0xaa, 0x39, 0xb3, 0x04, 0x00, 0x00,
+	// 405 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xa4, 0x93, 0xc1, 0x6e, 0xd3, 0x40,
+	0x10, 0x86, 0x65, 0x3b, 0x36, 0xc9, 0x46, 0x01, 0x34, 0x80, 0xb0, 0x0c, 0x08, 0xb3, 0x5c, 0xac,
+	0x88, 0xd8, 0x49, 0x38, 0x81, 0x04, 0x52, 0x80, 0x28, 0x17, 0x4e, 0x86, 0x5c, 0xc2, 0xc9, 0xd8,
+	0x23, 0xcb, 0x52, 0xe2, 0xdd, 0xda, 0xdb, 0x34, 0x51, 0xd5, 0x4b, 0x1f, 0xa1, 0x7d, 0xb4, 0xf6,
+	0x11, 0xfa, 0x20, 0x95, 0x77, 0xd3, 0x4a, 0x49, 0x13, 0x5f, 0x7a, 0xf2, 0x68, 0x66, 0xfe, 0x6f,
+	0x67, 0x7f, 0xcf, 0x92, 0x36, 0x2f, 0xd8, 0x6a, 0xed, 0xf3, 0x82, 0x09, 0x06, 0x2f, 0x27, 0x05,
+	0x8f, 0xc7, 0xab, 0x68, 0xc1, 0xe7, 0xe8, 0xff, 0xc1, 0x62, 0x99, 0xc5, 0x58, 0x3a, 0x6f, 0x53,
+	0xc6, 0xd2, 0x39, 0x06, 0x11, 0xcf, 0x82, 0x28, 0xcf, 0x99, 0x88, 0x44, 0xc6, 0xf2, 0x52, 0x69,
+	0x9c, 0x4f, 0xf2, 0x13, 0xf7, 0x52, 0xcc, 0x7b, 0xe5, 0x49, 0x94, 0xa6, 0x58, 0x04, 0x8c, 0xcb,
+	0x8e, 0x87, 0xdd, 0xf4, 0x09, 0x31, 0xc7, 0x0b, 0x2e, 0xd6, 0xf4, 0x1d, 0x69, 0xff, 0x65, 0x09,
+	0x0b, 0xf1, 0xe8, 0x18, 0x4b, 0x01, 0x4f, 0x89, 0x9e, 0x25, 0xb6, 0xe6, 0x6a, 0x9e, 0x19, 0xea,
+	0x59, 0x42, 0xbf, 0x93, 0x46, 0x55, 0xde, 0xcd, 0x03, 0x90, 0x86, 0xc0, 0x95, 0xb0, 0x75, 0x57,
+	0xf3, 0x5a, 0xa1, 0x8c, 0xab, 0x5c, 0xc2, 0x72, 0xb4, 0x0d, 0x57, 0xf3, 0x9a, 0xa1, 0x8c, 0xe9,
+	0x17, 0x62, 0x56, 0xfa, 0x12, 0xfa, 0xc4, 0x14, 0x55, 0x60, 0x6b, 0xae, 0xe1, 0xb5, 0x87, 0x8e,
+	0xbf, 0xef, 0x8a, 0xbe, 0x1c, 0x45, 0x35, 0xd2, 0xf7, 0xa4, 0xf3, 0x0b, 0xe7, 0x28, 0xf0, 0xc0,
+	0x6c, 0xc3, 0x6b, 0x43, 0xcd, 0xbe, 0x51, 0xc3, 0x94, 0x58, 0x3f, 0x0b, 0x8c, 0x04, 0x42, 0x0d,
+	0xdd, 0xa9, 0xa9, 0xd1, 0x17, 0xe7, 0x57, 0x37, 0x97, 0x7a, 0x87, 0x36, 0x83, 0xe5, 0x20, 0xa8,
+	0xa6, 0xf8, 0xaa, 0x75, 0x61, 0x46, 0xac, 0x29, 0x4f, 0x1e, 0x83, 0xb5, 0x25, 0x16, 0x68, 0xe7,
+	0x0e, 0x1b, 0x9c, 0x66, 0xc9, 0x59, 0xc5, 0xfe, 0x47, 0x8c, 0x09, 0x0a, 0xf8, 0x50, 0xe3, 0x86,
+	0xba, 0x7c, 0x2d, 0xff, 0x95, 0xe4, 0x3f, 0x83, 0x6d, 0x3e, 0x44, 0xc4, 0x52, 0x06, 0xc2, 0xc7,
+	0xfd, 0xe2, 0x2d, 0x7b, 0x9d, 0x37, 0xfb, 0x9b, 0xd4, 0x9a, 0x6c, 0x8e, 0xe8, 0xee, 0x1c, 0x11,
+	0x92, 0xc6, 0xef, 0xac, 0x14, 0x50, 0xa7, 0x3d, 0x04, 0x96, 0x7b, 0x41, 0x9f, 0x4b, 0x30, 0x81,
+	0x7b, 0xcb, 0x7f, 0x7c, 0xbb, 0x18, 0x05, 0xd0, 0xdb, 0xfe, 0xb5, 0xaf, 0x47, 0xb9, 0x8b, 0x0a,
+	0xe0, 0xa6, 0x05, 0x8f, 0xdd, 0x52, 0x15, 0x86, 0xe6, 0xc0, 0xef, 0xfb, 0xfd, 0x59, 0xab, 0x4a,
+	0xca, 0x17, 0xf4, 0xdf, 0x92, 0x0b, 0xfe, 0xf9, 0x36, 0x00, 0x00, 0xff, 0xff, 0x28, 0x4c, 0x81,
+	0xb9, 0x51, 0x03, 0x00, 0x00,
 }

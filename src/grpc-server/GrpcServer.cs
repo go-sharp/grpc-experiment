@@ -4,6 +4,7 @@ namespace GrpcExample.Server
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Grpc.Core;
     using GrpcExample.Services;
     using Microsoft.Extensions.Logging;
 
@@ -18,15 +19,13 @@ namespace GrpcExample.Server
         };
         private int id = 4;
 
-        public override Task<TodoResponse> Create(Todo request, Grpc.Core.ServerCallContext context)
+        public override Task<Todo> Create(Todo request, Grpc.Core.ServerCallContext context)
         {
-            var response = new TodoResponse() { Status = Status.Ok };
             if (request.Id != 0 || string.IsNullOrEmpty(request.Text))
             {
                 Logger.LogWarning("invalid todo received {@Todo}", request);
-                response.Status = Status.Failed;
-                response.Error = new Error() { Text = request.Id == 0 ? "id must not be set" : "a todo needs a title" };
-                return Task.FromResult(response);
+                throw new RpcException(new Status(StatusCode.InvalidArgument
+                , request.Id != 0 ? "id must not be set" : "a todo needs a title"));
             }
 
             lock (this.mylock)
@@ -36,19 +35,16 @@ namespace GrpcExample.Server
             }
 
             Logger.LogInformation("todo successfully created {@Todo}", request);
-            response.Todo = request;
-            return Task.FromResult(response);
+            return Task.FromResult(request);
         }
 
-        public override Task<TodoResponse> Update(Todo request, Grpc.Core.ServerCallContext context)
+        public override Task<Todo> Update(Todo request, Grpc.Core.ServerCallContext context)
         {
-            var response = new TodoResponse() { Status = Status.Ok };
             if (request.Id == 0 || string.IsNullOrEmpty(request.Text))
             {
                 Logger.LogWarning("invalid todo received {@Todo}", request);
-                response.Status = Status.Failed;
-                response.Error = new Error() { Text = request.Id == 0 ? "id must be set" : "a todo needs a title" };
-                return Task.FromResult(response);
+                throw new RpcException(new Status(StatusCode.InvalidArgument
+                , request.Id == 0 ? "id must be set" : "a todo needs a title"));
             }
 
             lock (this.mylock)
@@ -56,24 +52,21 @@ namespace GrpcExample.Server
                 if (!this.todos.ContainsKey(request.Id))
                 {
                     Logger.LogWarning("id {ID} not found", request.Id);
-                    response.Status = Status.Failed;
-                    response.Error = new Error() { Text = $"id {request.Id} not found" };
-                    return Task.FromResult(response);
+                    throw new RpcException(new Status(StatusCode.NotFound, $"id {request.Id} not found"));
                 }
-                response.Todo = this.todos[request.Id] = request;
+                this.todos[request.Id] = request;
             }
             Logger.LogInformation("todo successfully updated {@Todo}", request);
-            return Task.FromResult(response);
+            return Task.FromResult(request);
         }
 
-        public override Task<DeleteResponse> Delete(DeleteRequest request, Grpc.Core.ServerCallContext context)
+        public override Task<Empty> Delete(DeleteRequest request, Grpc.Core.ServerCallContext context)
         {
-            var response = new DeleteResponse() { Status = Status.Ok };
             if (request.Id == 0)
             {
-                response.Status = Status.Failed;
                 Logger.LogWarning("can not delete a todo with id {ID}", request.Id);
-                return Task.FromResult(response);
+                throw new RpcException(new Status(StatusCode.InvalidArgument
+                , $"can not delete a todo with id {request.Id}"));
             }
 
             lock (this.mylock)
@@ -81,37 +74,32 @@ namespace GrpcExample.Server
                 this.todos.Remove(request.Id);
             }
 
-            return Task.FromResult(response);
+            return Task.FromResult(new Empty());
         }
 
-        public override Task<TodoResponse> Get(GetTodoRequest request, Grpc.Core.ServerCallContext context)
+        public override Task<Todo> Get(TodoRequest request, Grpc.Core.ServerCallContext context)
         {
-            var response = new TodoResponse() { Status = Status.Ok };
             if (request.Id == 0)
             {
-                response.Status = Status.Failed;
-                Logger.LogWarning("can not find a todo with id {ID}", request.Id);
-                response.Status = Status.Failed;
-                response.Error = new Error { Text = $"can not find a todo with id {request.Id}"};
-                return Task.FromResult(response);
+                Logger.LogWarning("id must be greater than 0");
+                throw new RpcException(new Status(StatusCode.InvalidArgument, "id must be greater than 0"));
             }
 
+            Todo todo;
             lock (this.mylock)
             {
-                 if (!this.todos.ContainsKey(request.Id))
+                if (!this.todos.ContainsKey(request.Id))
                 {
                     Logger.LogWarning("id {ID} not found", request.Id);
-                    response.Status = Status.Failed;
-                    response.Error = new Error() { Text = $"id {request.Id} not found" };
-                    return Task.FromResult(response);
+                    throw new RpcException(new Status(StatusCode.NotFound, $"id {request.Id} not found"));
                 }
-                response.Todo = this.todos[request.Id];
+                todo = this.todos[request.Id];
             }
 
-            return Task.FromResult(response);
+            return Task.FromResult(todo);
         }
 
-        public override Task<Todos> List(Services.Void request, Grpc.Core.ServerCallContext context)
+        public override Task<Todos> List(Empty request, Grpc.Core.ServerCallContext context)
         {
             Logger.LogInformation("calling rpc service operation 'List'");
             var response = new Todos();
