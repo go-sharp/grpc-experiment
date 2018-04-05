@@ -57,29 +57,55 @@ class App extends React.Component<{}, State> {
         </div>
         <hr />
         <h1>Todos</h1>
-        {this.state.todos.map(t => (
-          <TodoItem
-            key={t.id}
-            id={t.id}
-            title={t.text}
-            done={t.done}
-            onClick={id =>
-              this.setState({
-                selected: { id: t.id, title: t.text, done: t.done }
-              })
-            }
-          />
-        ))}
+        {this.state.todos &&
+          this.state.todos.map(t => (
+            <TodoItem
+              key={t.id}
+              id={t.id}
+              title={t.text}
+              done={t.done}
+              onDelete={id => this.deleteItem(id)}
+              onEdit={id =>
+                this.setState({
+                  selected: { id: t.id, title: t.text, done: t.done }
+                })
+              }
+            />
+          ))}
       </div>
     );
   }
 
-  private saveItem(arg0: any, arg1: any, arg2: any) {
-    throw new Error('Method not implemented.');
+  private async deleteItem(id: number) {
+    this.setState({ error: '' });
+    try {
+      await this.api._delete({ id: id });
+      await this.loadTodos();
+    } catch (ex) {
+      this.setState({ error: ex.toString() });
+    }
+  }
+
+  private async saveItem(id: number, title: string, done: boolean) {
+    this.setState({ error: '' });
+    try {
+      if (id === 0) {
+        await this.api.create({ body: { id: 0, text: title, done: done } });
+      } else {
+        await this.api.update({
+          id: id,
+          body: { id: id, text: title, done: done }
+        });
+      }
+      this.resetSelection();
+      await this.loadTodos();
+    } catch (ex) {
+      this.setState({ error: ex.toString() });
+    }
   }
 
   private resetSelection() {
-    throw new Error('Method not implemented.');
+    this.setState({ error: '', selected: { id: 0, title: '', done: false } });
   }
 
   private async loadTodos() {

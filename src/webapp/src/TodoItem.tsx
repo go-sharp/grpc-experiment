@@ -5,7 +5,8 @@ interface Props {
   id: number;
   title: string;
   done: boolean;
-  onClick: (id: number) => void;
+  onEdit: (id: number) => void;
+  onDelete: (id: number) => void;
 }
 
 const css = {
@@ -28,8 +29,14 @@ export default class TodoItem extends React.PureComponent<Props> {
         <input
           style={css}
           type="button"
-          onClick={() => this.props.onClick(id)}
+          onClick={() => this.props.onEdit(id)}
           value="Edit"
+        />
+        <input
+          style={css}
+          type="button"
+          onClick={() => this.props.onDelete(id)}
+          value="Delete"
         />
       </div>
     );
