@@ -50,6 +50,9 @@ class App extends React.Component<{}, State> {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to Grpc TodoService Experiment</h1>
         </header>
+        <div style={{ color: 'red', padding: '15px 0' }}>
+          {this.state.error}
+        </div>
         <EditItem
           id={ident}
           title={text}
@@ -59,26 +62,25 @@ class App extends React.Component<{}, State> {
           onAbort={() => this.resetSelection()}
         />
         <button onClick={() => this.loadTodos()}>Refresh</button>
-        <div style={{ color: 'red', padding: '15px 0' }}>
-          {this.state.error}
-        </div>
         <hr />
         <h1>Todos</h1>
-        {this.state.todos &&
-          this.state.todos.map(t => (
-            <TodoItem
-              key={t.id}
-              id={t.id}
-              title={t.title}
-              done={t.done}
-              onDelete={id => this.deleteItem(id)}
-              onEdit={id =>
-                this.setState({
-                  selected: { id: t.id, title: t.title, done: t.done }
-                })
-              }
-            />
-          ))}
+        <div style={{ textAlign: 'center', display: 'inline-block' }}>
+          {this.state.todos &&
+            this.state.todos.map(t => (
+              <TodoItem
+                key={t.id}
+                id={t.id}
+                title={t.title}
+                done={t.done}
+                onDelete={id => this.deleteItem(id)}
+                onEdit={id =>
+                  this.setState({
+                    selected: { id: t.id, title: t.title, done: t.done }
+                  })
+                }
+              />
+            ))}
+        </div>
       </div>
     );
   }
@@ -89,7 +91,7 @@ class App extends React.Component<{}, State> {
       await this.api._delete({ id: id });
       await this.loadTodos();
     } catch (ex) {
-      this.setState({ error: ex.toString() });
+      this.handleError(ex);
     }
   }
 
@@ -107,7 +109,7 @@ class App extends React.Component<{}, State> {
       this.resetSelection();
       await this.loadTodos();
     } catch (ex) {
-      this.setState({ error: ex.toString() });
+      this.handleError(ex);
     }
   }
 
@@ -119,18 +121,32 @@ class App extends React.Component<{}, State> {
     try {
       this.setState({ error: '' });
       const result = await this.api.list();
-      const todos = result.todos.map(t => {
-        return {
-          id: t.id || 0,
-          title: t.text || '',
-          done: t.done || false
-        };
-      });
+      const todos = result.todos
+        ? result.todos.map(t => {
+            return {
+              id: t.id || 0,
+              title: t.text || '',
+              done: t.done || false
+            };
+          })
+        : [];
 
       this.setState({ todos: todos });
     } catch (ex) {
-      this.setState({ error: ex.toString() });
+      this.handleError(ex);
     }
+  }
+
+  private handleError(e: any) {
+    if (e && typeof e.json === 'function') {
+      const response = e as Response;
+      response
+        .json()
+        .then(res => this.setState({ error: res.error }))
+        .catch(reason => this.setState({ error: `${e}` }));
+      return;
+    }
+    this.setState({ error: `${e}` });
   }
 }
 

@@ -23,9 +23,18 @@ export default class TodoItem extends React.PureComponent<Props> {
     const { id, title, done } = this.props;
 
     return (
-      <div>
+      <div style={{ display: 'flex', alignItems: 'flex-start' }}>
         <input type="checkbox" disabled={true} checked={done} style={css} />
-        <span style={css}>{title}</span>
+        <span
+          style={{
+            width: 300,
+            display: 'inline-block',
+            textAlign: 'left',
+            ...css
+          }}
+        >
+          {title}
+        </span>
         <button style={css} onClick={() => this.props.onEdit(id)}>
           Edit
         </button>
