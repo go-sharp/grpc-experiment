@@ -12,14 +12,20 @@ import {
 const logo = require('./logo.svg');
 
 interface State {
-  todos: ServicesTodo[];
+  todos: Todo[];
   error: string;
-  selected: { id: number; title: string; done: boolean };
+  selected: Todo;
+}
+
+interface Todo {
+  id: number;
+  title: string;
+  done: boolean;
 }
 
 class App extends React.Component<{}, State> {
   state = {
-    todos: [] as ServicesTodo[],
+    todos: [] as Todo[],
     selected: { id: 0, title: '', done: false },
     error: ''
   };
@@ -37,6 +43,7 @@ class App extends React.Component<{}, State> {
   }
 
   render() {
+    const { id: ident, title: text, done: isDone } = this.state.selected;
     return (
       <div className="App">
         <header className="App-header">
@@ -44,9 +51,9 @@ class App extends React.Component<{}, State> {
           <h1 className="App-title">Welcome to Grpc TodoService Experiment</h1>
         </header>
         <EditItem
-          id={this.state.selected.id}
-          title={this.state.selected.title}
-          done={this.state.selected.done}
+          id={ident}
+          title={text}
+          done={isDone}
           style={{ padding: '15px 0' }}
           onSave={(id, title, done) => this.saveItem(id, title, done)}
           onAbort={() => this.resetSelection()}
@@ -62,12 +69,12 @@ class App extends React.Component<{}, State> {
             <TodoItem
               key={t.id}
               id={t.id}
-              title={t.text}
+              title={t.title}
               done={t.done}
               onDelete={id => this.deleteItem(id)}
               onEdit={id =>
                 this.setState({
-                  selected: { id: t.id, title: t.text, done: t.done }
+                  selected: { id: t.id, title: t.title, done: t.done }
                 })
               }
             />
@@ -112,7 +119,15 @@ class App extends React.Component<{}, State> {
     try {
       this.setState({ error: '' });
       const result = await this.api.list();
-      this.setState({ todos: result.todos });
+      const todos = result.todos.map(t => {
+        return {
+          id: t.id || 0,
+          title: t.text || '',
+          done: t.done || false
+        };
+      });
+
+      this.setState({ todos: todos });
     } catch (ex) {
       this.setState({ error: ex.toString() });
     }

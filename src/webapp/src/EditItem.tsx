@@ -31,12 +31,6 @@ export default class EditItem extends React.PureComponent<Props, State> {
 
   render() {
     const { title, done } = this.state;
-    const saveButton =
-      this.props.id && this.props.id > 0 ? (
-        <button>Update</button>
-      ) : (
-        <button>Create</button>
-      );
 
     return (
       <div style={this.props.style}>
