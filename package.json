@@ -2,11 +2,16 @@
   "name": "grpc-experiment",
   "version": "1.0.0",
   "description": "Example Project with GRPC + .Net + grpc-proxy + Reactjs",
-  "main": "index.js",
   "scripts": {
-    "start": "cd ./src/grpc-server && dotnet run",
-    "gen-c#-win64":
-      "./tools/windwos_x64/protoc --csharp_out=./src/grpc-service --grpc_out=./src/grpc-service  --plugin=protoc-gen-grpc=./tools/windwos_x64/grpc_csharp_plugin ./src/protobuf/todo.proto"
+    "start": "",
+    "gen-code-linux64": "PROTOC_PATH=$(pwd)/tools/linux_x64 sh ./gengrpc.sh",
+    "gen-code-macos64": "PROTOC_PATH=$(pwd)/tools/darwin_x64 sh ./gengrpc.sh",
+    "gen-code-window64": "PROTOC_PATH=$(pwd)/tools/windows_x64 ./gengrpc.bat",
+    "restore-all": "npm-run-all restore-webapp restore-dotnet",
+    "restore-webapp": "npm-run-all 'cd ./src/webapp' npm i",
+    "restore-dotnet": "cd ./src && dotnet restore",
+    "start-server": "cd ./src/grpc-server && dotnet run",
+    "start-proxy-linux64": "cd ./src/grpc-proxy ./gw_linux_x64"
   },
   "repository": {
     "type": "git",
@@ -18,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/go-sharp/grpc-experiment/issues"
   },
-  "homepage": "https://github.com/go-sharp/grpc-experiment#readme"
+  "homepage": "https://github.com/go-sharp/grpc-experiment#readme",
+  "devDependencies": {
+    "npm-run-all": "^4.1.2"
+  }
 }
