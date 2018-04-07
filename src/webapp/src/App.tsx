@@ -2,12 +2,7 @@ import * as React from 'react';
 import './App.css';
 import TodoItem from './TodoItem';
 import EditItem from './EditItem';
-import {
-  ServicesTodo,
-  TodoServiceApi,
-  TodoServiceApiFactory as af,
-  TodoServiceApiFp as api
-} from './api/api';
+import { TodoServiceApi } from './api/api';
 
 const logo = require('./logo.svg');
 
