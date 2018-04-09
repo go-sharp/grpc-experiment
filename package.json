@@ -15,7 +15,7 @@
     "start-server": "cd ./src/grpc-server && dotnet run",
     "start-proxy-linux64": "cd ./src/grpc-proxy && ./gw_linux_x64",
     "start-proxy-macos64": "cd ./src/grpc-proxy && ./gw_macos_x64",
-    "start-proxy-windows64": "cd ./src/grpc-proxy && ./gw_x64.exe",
+    "start-proxy-windows64": "cd ./src/grpc-proxy && gw_x64.exe",
     "start-client": "cd ./src/grpc-client && dotnet run",
     "start-webapp": "cd ./src/webapp && npm start"
   },
@@ -23,7 +23,11 @@
     "type": "git",
     "url": "git+https://github.com/go-sharp/grpc-experiment.git"
   },
-  "keywords": ["grpc", ".net", "react"],
+  "keywords": [
+    "grpc",
+    ".net",
+    "react"
+  ],
   "author": "Sandro Dallo sandro@dallo.biz",
   "license": "MIT",
   "bugs": {
