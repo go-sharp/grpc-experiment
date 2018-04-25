@@ -18,7 +18,7 @@ Starting the grpc-client with the following command:
 npm run start-client
 ```
 
-# Developtment requirements
+# Development requirements
 
 * .Net Core 2.0
 * Nodejs
