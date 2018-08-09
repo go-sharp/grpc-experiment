@@ -1,6 +1,7 @@
 ﻿namespace GrpcExample.Server
 {
     using System;
+    using System.IO;
     using Grpc.Core;
     using GrpcExample.Services;
     using Microsoft.Extensions.Logging;
@@ -10,10 +11,11 @@
         private static ILogger Logger = Log.CreateLogger<Program>();
         static void Main(string[] args)
         {
+            var sslCredential = new SslServerCredentials(new KeyCertificatePair[] { new KeyCertificatePair(File.ReadAllText("../../certs/cert.pem"), File.ReadAllText("../../certs/key.pem")) });
             var server = new Server()
             {
                 Services = { TodoService.BindService(new GrpcServer()) },
-                Ports = { new ServerPort("localhost", 5000, ServerCredentials.Insecure) }
+                Ports = { new ServerPort("localhost", 5000, sslCredential) }
             };
 
             Logger.LogInformation("Starting grpc console server...");
