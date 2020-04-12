@@ -10,7 +10,7 @@ interface Props {
 }
 
 const css = {
-  lineHeiht: 20,
+  lineHeight: 20,
   margin: '0 5px'
 };
 
